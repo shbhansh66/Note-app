@@ -19,10 +19,10 @@ const App = () => {
 
     function formHandling(e){
         e.preventDefault();
-        if (!title.trim() || !details.trim()) {
-            alert("Please enter both a title and details.");
-            return;
-        }
+        // if (!title.trim() || !details.trim()) {
+        //     alert("Please enter both a title and details.");
+        //     return;
+        // }
         //  Functional update form for safety
         settask(prevTasks => [...prevTasks, { title, details }]);
         
@@ -51,16 +51,22 @@ const App = () => {
                                         aria-label="Delete Note">
                                   <Plus size={40} color="#e7dede" strokeWidth={5} className='relative left-1' />
                                     </button>
+
+                                   
             {/* Form Section */}
            <form 
     onSubmit={formHandling} 
     className={`
         'fixed inset-0 z-40 bg-gray-900 flex'
         ${isFormOpen ? 'fixed inset-0 z-40 bg-gray-900 flex' : 'hidden'} 
-        lg:w-1/2 flex-col w-full gap-6 p-10 z-10 bg-opacity-90 backdrop-blur-lg shadow-lg
+        lg:w-1/2 flex-col w-full gap-6 p-10 z-10 bg-opacity-90 backdrop-blur-lg shadow-lg md:flex
     `} 
     action=""
 >
+  <button  onClick={() => setIsFormOpen(false)} className='w-6 h-6 bg-red-500 rounded-full flex items-center justify-center absolute right-5'>
+        <X size={16} color="#f0ebeb" strokeWidth={1.75} />
+    </button>
+   
                 <h1 className='text-4xl font-extrabold text-yellow-400 mb-4'>Add Notes</h1> {/* Enhanced heading */}
 
                 {/* Input Title - Improved styling */}
@@ -70,7 +76,7 @@ const App = () => {
                     value={title} 
                     onChange={(e)=>{ settitle(e.target.value) }} 
                     placeholder='Write Note Heading' 
-                />
+                required/>
 
                 {/* Details Textarea - Improved styling */}
                 <textarea 
@@ -82,7 +88,12 @@ const App = () => {
                 />
                 
                 {/* Submit Button - Improved styling */}
-                <button  onClick={() => setIsFormOpen(false)}
+                <button  onClick={() =>{ 
+                     if (!title.trim() || !details.trim()) {
+            alert("Please enter both a title and details.");
+            return;
+        }
+                    setIsFormOpen(false)}}
                     type="submit" // Explicitly set type to submit
                     className='active:scale-95 px-5 py-4 border-2 border-yellow-500 rounded-lg font-bold bg-yellow-500 text-gray-900 shadow-md hover:bg-yellow-400 transition duration-200' 
                 >
