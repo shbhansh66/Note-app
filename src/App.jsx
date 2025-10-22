@@ -4,6 +4,7 @@ import { X,Plus,Cross } from 'lucide-react';
 
 const App = () => {
 
+    const [isFormOpen, setIsFormOpen] = useState(false);
     const [title, settitle] = useState('');
     const [details, setdetails] = useState('');
 
@@ -35,7 +36,7 @@ const App = () => {
     }
 
     return (
-        <div className='bg-gray-600 h-screen w-full flex flex-col lg:flex-row text-white overflow-hidden'>
+        <div className='bg-gray-600 h-screen w-full flex flex-col md:flex-row text-white overflow-hidden'>
             {/* Background Image - Adjusted opacity and object-cover */}
             <img 
                 className='absolute w-full h-screen z-0 opacity-20 object-cover' 
@@ -45,17 +46,21 @@ const App = () => {
 
         
            <button 
-                                        onClick={() => deleteNote(idx)} 
-                                        className='absolute bottom-10  right-2 bg-red-600 text-white rounded-full w-13 h-13 active:scale-90 transition duration-150 z-20  border-3 shadow-lg border-green-500'
+                                      onClick={() => setIsFormOpen(true)}
+                                        className='absolute bottom-10  right-2 bg-red-600 text-white rounded-full w-13 h-13 active:scale-90 transition duration-150 z-20  border-3 shadow-lg border-green-500 md:hidden'
                                         aria-label="Delete Note">
                                   <Plus size={40} color="#e7dede" strokeWidth={5} className='relative left-1' />
                                     </button>
             {/* Form Section */}
-            <form 
-                onSubmit={formHandling} 
-                className='lg:w-1/2 flex flex-col w-full gap-6 p-10 z-10  bg-opacity-90 backdrop-blur-lg shadow-lg hidden sm:flex' // Added more styling
-                action=""
-            >
+           <form 
+    onSubmit={formHandling} 
+    className={`
+        'fixed inset-0 z-40 bg-gray-900 flex'
+        ${isFormOpen ? 'fixed inset-0 z-40 bg-gray-900 flex' : 'hidden'} 
+        lg:w-1/2 flex-col w-full gap-6 p-10 z-10 bg-opacity-90 backdrop-blur-lg shadow-lg
+    `} 
+    action=""
+>
                 <h1 className='text-4xl font-extrabold text-yellow-400 mb-4'>Add Notes</h1> {/* Enhanced heading */}
 
                 {/* Input Title - Improved styling */}
@@ -77,7 +82,7 @@ const App = () => {
                 />
                 
                 {/* Submit Button - Improved styling */}
-                <button 
+                <button  onClick={() => setIsFormOpen(false)}
                     type="submit" // Explicitly set type to submit
                     className='active:scale-95 px-5 py-4 border-2 border-yellow-500 rounded-lg font-bold bg-yellow-500 text-gray-900 shadow-md hover:bg-yellow-400 transition duration-200' 
                 >
