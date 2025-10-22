@@ -46,7 +46,7 @@ const App = () => {
             {/* Form Section */}
             <form 
                 onSubmit={formHandling} 
-                className='lg:w-1/2 flex flex-col w-full gap-6 p-10 z-10  bg-opacity-90 backdrop-blur-lg shadow-lg' // Added more styling
+                className='lg:w-1/2 flex flex-col w-full gap-6 p-10 z-10  bg-opacity-90 backdrop-blur-lg shadow-lg hidden sm:flex' // Added more styling
                 action=""
             >
                 <h1 className='text-4xl font-extrabold text-yellow-400 mb-4'>Add Notes</h1> {/* Enhanced heading */}
@@ -79,13 +79,13 @@ const App = () => {
             </form>
 
             {/* Notes Display Section */}
-            <div className='lg:w-1/2 w-full lg:p-10 p-5 flex flex-col gap-6 items-center h-full lg:border-l-2 border-gray-700 z-10 overflow-hidden'>
+            <div className='lg:w-1/2 w-full lg:p-10 p-5 flex flex-col gap-6 items-center h-full lg:border-l-2 border-gray-700 z-10 overflow-hidden '>
                 <h1 className='text-3xl font-bold border-2 border-yellow-500 bg-yellow-500 rounded-2xl p-2 shadow-2xl shadow-yellow-800 text-gray-900 whitespace-nowrap'> {/* Enhanced heading */}
                     {task.length > 0 ? `Recent Notes (${task.length})` : 'Recent Notes'}
                 </h1>
                 
                 {/* Notes Container - Adjusted layout for better wrapping */}
-                <div className='scroll relative flex gap-4 flex-wrap justify-center w-full h-full overflow-y-auto overflow-x-hidden p-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900'> {/* Added custom scrollbar */}
+                <div className='scroll relative flex gap-4 flex-wrap justify-center w-full h-full overflow-y-auto overflow-x-hidden p-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 '> {/* Added custom scrollbar */}
                     
                     {/* Conditional message when no notes */}
                     {task.length === 0 ? (
@@ -94,7 +94,7 @@ const App = () => {
                         task.map(function(elem,idx){
                             return (
                                 <div key={idx} className="
-                                    h-52 lg:h-64 lg:w-52 w-40 p-2 
+                                    h-74 lg:h-76 lg:w-64 w-64  sm:w-52 p-2 
                                     text-gray-900 bg-white rounded-2xl shadow-xl shadow-yellow-900 
                                     overflow-hidden relative 
                                     bg-cover bg-center 
@@ -110,7 +110,7 @@ const App = () => {
                                     </button>
                                     
                                     {/* Content Container - Adjusted padding to make space for delete button */}
-                                     <div className='absolute scroll  px-2 py-4 w-full h-[11rem] lg:h-[14rem] overflow-y-auto overflow-x-hidden'>
+                                     <div className='absolute   px-2 py-4 w-full h-[11rem] lg:h-[14rem] overflow-y-auto overflow-x-hidden'>
           <h2 onClick={() => deleteNote(idx)} className= 'absolute top-2 right-4 bg-red-500 rounded-full  w-6 h-6 flex justify-center items-center'><X size={16} color="#f0ebeb" strokeWidth={1.75} /></h2>
           <h1 className='text-lg p-2 leading-tight  font-bold break-words' >{elem.title}</h1>
         <p className='text-gray-500 mt-1 p-1 text-sm leading-tight  font-medium  break-words'>{elem.details}</p>
