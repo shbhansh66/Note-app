@@ -46,9 +46,9 @@ const App = () => {
         
            <button 
                                         onClick={() => deleteNote(idx)} 
-                                        className='absolute bottom-10  right-2 bg-red-600 text-white rounded-full w-16 h-16 active:scale-90 transition duration-150 z-20  border-3 shadow-lg border-green-500'
+                                        className='absolute bottom-10  right-2 bg-red-600 text-white rounded-full w-13 h-13 active:scale-90 transition duration-150 z-20  border-3 shadow-lg border-green-500'
                                         aria-label="Delete Note">
-                                  <Plus size={50} color="#e7dede" strokeWidth={5} className='relative left-1' />
+                                  <Plus size={40} color="#e7dede" strokeWidth={5} className='relative left-1' />
                                     </button>
             {/* Form Section */}
             <form 
