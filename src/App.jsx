@@ -112,7 +112,7 @@ const App = () => {
                                     {/* Content Container - Adjusted padding to make space for delete button */}
                                      <div className='absolute   px-2 py-4 w-full h-[11rem] lg:h-[14rem] overflow-y-auto overflow-x-hidden'>
           <h2 onClick={() => deleteNote(idx)} className= 'absolute top-2 right-4 bg-red-500 rounded-full  w-6 h-6 flex justify-center items-center'><X size={16} color="#f0ebeb" strokeWidth={1.75} /></h2>
-          <h1 className='text-lg p-2 leading-tight  font-bold break-words' >{elem.title}</h1>
+          <h1 className='relative left-12 text-lg p-2 leading-tight  font-bold break-words' >{elem.title}</h1>
         <p className='text-gray-500 mt-1 p-1 text-sm leading-tight  font-medium  break-words'>{elem.details}</p>
         </div>
                                 </div>
