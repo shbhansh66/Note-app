@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X,Plus,Cross } from 'lucide-react';
 
 
 const App = () => {
@@ -42,7 +42,14 @@ const App = () => {
                 src="https://img.freepik.com/premium-photo/book-note-black-board-paper-note-add-text_43429-379.jpg" 
                 alt="Blackboard background" 
             />
-            
+
+        
+           <button 
+                                        onClick={() => deleteNote(idx)} 
+                                        className='absolute bottom-10  right-2 bg-red-600 text-white rounded-full w-16 h-16 active:scale-90 transition duration-150 z-20  border-3 shadow-lg border-green-500'
+                                        aria-label="Delete Note">
+                                  <Plus size={50} color="#e7dede" strokeWidth={5} className='relative left-1' />
+                                    </button>
             {/* Form Section */}
             <form 
                 onSubmit={formHandling} 
