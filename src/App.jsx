@@ -147,7 +147,7 @@ const App = () => {
                                     bg-cover bg-center 
                                     bg-[url('https://i.pinimg.com/474x/8e/79/25/8e7925764426f3dc2247162261238fd3.jpg')] 
                                     flex flex-col
-                                ">
+                                scroll-smooth">
                                     {/* Delete Button - changed to <button> for semantics */}
                                     <button 
                                         onClick={() => deleteNote(idx)} 
