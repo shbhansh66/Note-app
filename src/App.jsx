@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect } from 'react'
 import { X } from 'lucide-react';
 
 
@@ -6,10 +6,22 @@ const App = () => {
 
   const [title, settitle] = useState('');
   const [details, setdetails] = useState('');
-  const [task, settask] = useState([]);
+  const [task, settask] = useState(() => {
+        const savedNotes = localStorage.getItem('react-notes-app');
+        return savedNotes ? JSON.parse(savedNotes) : [];
+    });
+
+
+    useEffect(() => {
+        localStorage.setItem('react-notes-app', JSON.stringify(task));
+    }, [task]);
 
   function formHandling(e){
     e.preventDefault();
+    if (!title.trim() || !details.trim()) {
+            alert("Please enter both a title and details.");
+            return;
+        }
     const copytask=[...task];
 
     copytask.push({title,details});
