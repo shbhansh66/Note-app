@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X,Plus,Cross } from 'lucide-react';
+import { X,Plus,Cross,Pencil } from 'lucide-react';
 
 
 const App = () => {
@@ -7,6 +7,8 @@ const App = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [title, settitle] = useState('');
     const [details, setdetails] = useState('');
+
+    const [editingNote, setEditingNote] = useState(null);
 
     const [task, settask] = useState(() => {
         const saveNotes = localStorage.getItem('react-notes-app');
@@ -19,13 +21,19 @@ const App = () => {
 
     function formHandling(e){
         e.preventDefault();
-        // if (!title.trim() || !details.trim()) {
-        //     alert("Please enter both a title and details.");
-        //     return;
-        // }
-        //  Functional update form for safety
-        settask(prevTasks => [...prevTasks, { title, details }]);
+       if (editingNote !== null) {
+        // 2. 🎯 EDITING LOGIC: Find the note by index and update it
+        settask(prevTasks => prevTasks.map((note, index) => 
+            index === editingNote.index ? { title, details } : note // Update only the matching index
+        ));
         
+        // 3. Exit Edit Mode: This is crucial to stop adding duplicates next time
+        setEditingNote(null); 
+        
+    } else {
+        // 4. ADDING LOGIC: Add a brand new note
+        settask(prevTasks => [...prevTasks, { title, details }]);
+    }
         settitle('');
         setdetails('');
     }
@@ -34,6 +42,22 @@ const App = () => {
         //  Functional update form using filter (safer and cleaner)
         settask(prevTasks => prevTasks.filter((_, index) => index !== idx));
     }
+
+    function startEdit(note, index) {
+    
+    settitle(note.title);
+    setdetails(note.details);
+
+   
+    setEditingNote({ 
+        title: note.title, 
+        details: note.details, 
+        index: index 
+    });
+
+   
+    setIsFormOpen(true);
+}
 
     return (
         <div className='bg-gray-600 h-screen w-full flex flex-col md:flex-row text-white overflow-hidden'>
@@ -131,6 +155,15 @@ const App = () => {
                                         aria-label="Delete Note">
                                         <X size={16} color="#f0ebeb" strokeWidth={1.75} />
                                     </button>
+
+                                    {/* 👈 EDIT Button (NEW) */}
+    <button 
+        onClick={() => startEdit(elem, idx)} // 👈 यह startEdit फ़ंक्शन को कॉल करेगा
+        className='absolute top-2 right-10 bg-blue-600 text-white rounded-full w-7 h-7 flex justify-center items-center active:scale-90 transition duration-150 z-20'
+        aria-label="Edit Note">
+        {/* Make sure Pencil icon is imported: import { Pencil } from 'lucide-react'; */}
+        <Pencil size={14} color="#f0ebeb" strokeWidth={2} />
+    </button>
                                     
                                     {/* Content Container - Adjusted padding to make space for delete button */}
                                      <div className='absolute   px-2 py-4 w-full h-[11rem] lg:h-[14rem] overflow-y-auto overflow-x-hidden'>
